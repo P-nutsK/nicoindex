@@ -1,0 +1,25 @@
+{
+    "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+    "formatter": {
+        "indentWidth": 4,
+        "indentStyle": "tab",
+        "lineWidth": 120,
+        "ignore": [
+            "node_modules/**",
+            ".next/**"
+        ]
+    },
+    "css": {
+        "formatter": {
+            "enabled": true
+        }
+    },
+    "javascript": {
+        "formatter": {
+            "arrowParentheses": "asNeeded"
+        }
+    },
+    "linter": {
+        "enabled": false
+    }
+}

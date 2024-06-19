@@ -1,0 +1,193 @@
+.tag {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    transition: background-color 0.3s, color 0.3s;
+    input {
+        appearance: none;
+    }
+    background-color: #9fadf5;
+    border-radius: 9999px;
+    margin: 5px 2px;
+    padding: 10px;
+
+    .count {
+        font-family: "Courier New", Courier, monospace;
+        margin-right: 2px;
+    }
+
+    &:has(input:checked) {
+        background-color: #9ff5bc;
+        padding-left: 20px;
+        &::before {
+            position: absolute;
+            content: "";
+            display: inline-block;
+            background-image: url("/check_24dp.svg");
+            background-size: contain;
+            vertical-align: middle;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 15px;
+            transform: translate(-50%, -50%);
+        }
+    }
+    &:has(input:focus-visible) {
+        outline: blue 2px solid;
+        transition: 200ms;
+    }
+}
+.tag-container {
+    max-height: 200px;
+    overflow: hidden;
+    &:has(.expanded) {
+        height: auto;
+    }
+}
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flex-item {
+    width: calc(100% / 3 - 10px);
+    padding: 8px 5px;
+}
+
+.nicovideo {
+    height: 200px;
+    font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", sans-serif;
+    background: #eee url(/bg.gif) repeat-x;
+    color: #333;
+    margin: 0 4px 4px;
+
+    overflow: hidden;
+    border: solid 1px #ccc;
+
+    h1,
+    h2,
+    h3,
+    p,
+    div,
+    form {
+        margin: 0;
+        padding: 0;
+    }
+    img {
+        border: 0;
+    }
+    table {
+        text-align: left;
+    }
+
+    .header {
+        display: flex;
+        font-size: 12px;
+        img {
+            display: block;
+            padding: 4px;
+            object-fit: contain;
+        }
+    }
+    .body {
+        border-style: none;
+        margin-top: 2px;
+        border-collapse: collapse;
+    }
+    a:link {
+        color: #222;
+        text-decoration: underline;
+    }
+    a:visited {
+        color: #444;
+        text-decoration: underline;
+    }
+    a:hover,
+    a:active {
+        color: #666;
+        text-decoration: none;
+    }
+    a.video {
+        font-weight: bold;
+    }
+    a.video:link {
+        color: #677;
+        text-decoration: underline;
+    }
+    a.video:visited {
+        color: #233;
+        text-decoration: underline;
+    }
+    a.video:hover,
+    a.video:active {
+        color: #fff;
+        text-decoration: none;
+        background: #455;
+    }
+    h1 {
+        font-size: 18px;
+        line-height: 22px;
+    }
+    h2 {
+        font-size: 16px;
+        line-height: 20px;
+    }
+    h3 {
+        font-size: 14px;
+        line-height: 18px;
+    }
+    .TXT12 {
+        font-size: 12px;
+        line-height: 16px;
+    }
+    .TXT10 {
+        font-size: 10px;
+        line-height: 14px;
+        overflow-wrap: anywhere;
+        word-break: keep-all;
+    }
+
+    img.mylist_img {
+        width: 48px;
+        height: 36px;
+        border: solid 2px #333;
+    }
+    div.series_img {
+        background: #fff;
+        border: solid 1px #333;
+        float: right;
+        margin: 0 0 4px 4px;
+        padding: 3px;
+    }
+    div.series_img img {
+        max-width: 128px;
+        max-height: 72px;
+    }
+    div.user_img {
+        background: #fff;
+        border: solid 1px #333;
+        float: right;
+        margin: 0 0 4px 4px;
+        padding: 3px;
+    }
+    div.user_img img {
+        width: 96px;
+        height: 96px;
+    }
+    img.video_img {
+        width: 80px;
+        height: 60px;
+        border: solid 2px #333;
+    }
+
+    div.video_res {
+        font-size: 12px;
+        line-height: 1.25;
+        font-weight: bold;
+        background: #fff;
+        border: solid 2px #999;
+        padding: 6px;
+        margin-top: 2px;
+    }
+}
