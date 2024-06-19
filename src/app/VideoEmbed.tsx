@@ -2,7 +2,8 @@
 "use client";
 import type { Video } from "@/generate_videos";
 import styles from "./page.module.scss";
-import { formatDuration, formatDate } from "./page";
+import { Tag } from "./Tag";
+import { formatDate, formatDuration } from "./util";
 
 export function VideoEmbed({ video, className }: { video: Video; className?: string }) {
 	const url = `https://www.nicovideo.jp/watch_tmp/${video.id}`;
@@ -61,12 +62,16 @@ export function VideoEmbed({ video, className }: { video: Video; className?: str
 										{video.title}
 									</a>
 								</p>
-								<p className={styles.TXT10}>{video.shortDescription}</p>
+								<p className={styles.TXT10}>{video.shortDescription}...</p>
 							</td>
 						</tr>
 					</tbody>
 				</table>
-
+				<div className={styles.tags}>
+					{video.tags.map(tag => {
+						return <Tag key={tag.name} tagName={tag.name} showCheckmark={false} />;
+					})}
+				</div>
 				<div className={styles.video_res}>{video.latestCommentSummary}</div>
 			</div>
 		</div>

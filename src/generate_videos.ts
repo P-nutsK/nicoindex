@@ -160,7 +160,7 @@ async function main() {
 	}
 
 	const mapped: VideoMap = Object.fromEntries(result_v2.map(v => [v.id, v]));
-	writeFileSync("public/videos_v2.json", JSON.stringify(mapped));
+	writeFileSync(process.cwd() + "/src/app/videos.json", JSON.stringify(mapped));
 }
 
 main().catch(e => {

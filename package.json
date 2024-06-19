@@ -4,7 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbo",
-    "build": "tsx src/generate_videos.ts &&  next build",
+    "build": "next build",
+    "generate": "tsx src/generate_videos.ts",
+    "build:generate": "pnpm generate && pnpm build",
+    "preview": "pnpm build && pnpm start",
     "start": "next start",
     "lint": "next lint"
   },
@@ -22,6 +25,7 @@
     "@eslint/eslintrc": "^3.1.0",
     "@eslint/js": "^9.1.1",
     "@next/eslint-plugin-next": "^14.2.3",
+    "@swc-jotai/react-refresh": "^0.1.1",
     "@types/eslint__eslintrc": "^2.1.1",
     "@types/eslint__js": "^8.42.3",
     "@types/node": "^20",
@@ -37,8 +41,8 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "globals": "^15.0.0",
     "tsx": "^4.11.0",
+    "typescript": "^5.4.5",
     "typescript-eslint": "^7.13.0",
-    "typescript-plugin-css-modules": "^5.1.0",
-    "typescript": "^5.4.5"
+    "typescript-plugin-css-modules": "^5.1.0"
   }
 }

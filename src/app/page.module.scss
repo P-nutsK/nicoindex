@@ -1,37 +1,64 @@
+@import "_media";
+
+.noscript {
+    display: block;
+    font-size: x-large;
+    text-align: center;
+    padding: 100px 0;
+}
+
+button.showmore {
+}
+.search {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    padding-left: 30px;
+    border-radius: 999px;
+    border: #000 0px solid;
+    background-color: #eee;
+}
 .tag {
     cursor: pointer;
     position: relative;
     display: inline-block;
-    transition: background-color 0.3s, color 0.3s;
     input {
         appearance: none;
+        margin: 0;
     }
-    background-color: #9fadf5;
-    border-radius: 9999px;
-    margin: 5px 2px;
-    padding: 10px;
-
+    border: 1px #aaa solid;
+    border-radius: 3px;
+    margin: 2px;
+    padding: 0 0.5em;
     .count {
-        font-family: "Courier New", Courier, monospace;
-        margin-right: 2px;
+        margin-left: 2px;
     }
-
     &:has(input:checked) {
-        background-color: #9ff5bc;
-        padding-left: 20px;
-        &::before {
-            position: absolute;
+        padding-left: 27px;
+        &.show-checkmark::before {
             content: "";
-            display: inline-block;
             background-image: url("/check_24dp.svg");
-            background-size: contain;
-            vertical-align: middle;
+            position: absolute;
+            display: inline-block;
             width: 20px;
             height: 20px;
-            top: 50%;
-            left: 15px;
-            transform: translate(-50%, -50%);
+            top: 0;
+            left: 5px;
         }
+    }
+    color: #666;
+    background-color: white;
+    @media (any-hover: hover) {
+        &:hover {
+            background-color: #666;
+            color: white;
+        }
+    }
+
+    &:active,
+    &:has(input:checked) {
+        background-color: #666;
+        color: white;
     }
     &:has(input:focus-visible) {
         outline: blue 2px solid;
@@ -40,7 +67,7 @@
 }
 .tag-container {
     max-height: 200px;
-    overflow: hidden;
+    overflow-y: scroll;
     &:has(.expanded) {
         height: auto;
     }
@@ -51,12 +78,23 @@
 }
 
 .flex-item {
-    width: calc(100% / 3 - 10px);
+    @include mq(sm) {
+        width: calc(100% - 10px);
+    }
+    @include mq(md) {
+        width: calc(100% / 2 - 10px);
+    }
+    @include mq(lg) {
+        width: calc(100% / 3 - 10px);
+    }
+    @include mq(xl) {
+        width: calc(100% / 4 - 10px);
+    }
     padding: 8px 5px;
 }
 
 .nicovideo {
-    height: 200px;
+    height: 220px;
     font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", sans-serif;
     background: #eee url(/bg.gif) repeat-x;
     color: #333;
@@ -181,6 +219,16 @@
         border: solid 2px #333;
     }
 
+    .tags {
+        margin: 0;
+        line-height: 10px;
+        .tag {
+            padding: 2px;
+            margin: 1px;
+            font-size: 10px;
+        }
+    }
+
     div.video_res {
         font-size: 12px;
         line-height: 1.25;
@@ -189,5 +237,6 @@
         border: solid 2px #999;
         padding: 6px;
         margin-top: 2px;
+        word-break: break-all;
     }
 }

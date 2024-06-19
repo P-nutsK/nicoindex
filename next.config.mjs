@@ -1,8 +1,10 @@
-/** @type {import('next').NextConfig} */
+//@ts-check
+/** @satisfies {import('next').NextConfig} */
 const nextConfig = {
-	output: "export",
 	experimental: {
 		reactCompiler: true,
+
+		swcPlugins: [["@swc-jotai/react-refresh", {}]],
 	},
 };
 
