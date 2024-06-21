@@ -1,21 +1,20 @@
 "use client";
-import { VirtuosoGrid } from "react-virtuoso";
-import styles from "./page.module.scss";
-import { VideoEmbed } from "./VideoEmbed";
-import { filterVideos, useFilterValue } from "./filter";
-import type { Video } from "@/generate_videos";
-import { Footer as Footer } from "./Footer";
 import { useDeferredValue } from "react";
+import { VirtuosoGrid } from "react-virtuoso";
+import { Footer } from "./Footer";
+import SortBy from "./SortBy";
+import { VideoEmbed } from "./VideoEmbed";
+import { useFilterdVideos } from "./organizer/filter";
+import styles from "./page.module.scss";
 
 // メモ化の余地あり
-export function Videos({ videos, noscriptMode }: { videos: Video[]; noscriptMode: boolean }) {
-	const filter = useFilterValue();
-	const filterdVideos = filterVideos(videos, filter);
+export function Videos({ noscriptMode }: { noscriptMode: boolean }) {
+	const filterdVideos = useFilterdVideos();
 	const defferdVideos = useDeferredValue(filterdVideos);
 	//console.log(defferdVideos, defferdVideos?.length);
 	return (
 		<div>
-			<h2>ヒット: {defferdVideos.length}件</h2>
+			<h2>ヒット: {defferdVideos.length}件</h2> <SortBy />
 			{defferdVideos.length > 0 ? (
 				<VirtuosoGrid
 					totalCount={defferdVideos.length}
@@ -27,7 +26,7 @@ export function Videos({ videos, noscriptMode }: { videos: Video[]; noscriptMode
 					itemContent={(_, video) => {
 						return <VideoEmbed video={video} key={video.id} />;
 					}}
-					overscan={/* px */ 0}
+					overscan={/* px */ 400}
 					initialItemCount={noscriptMode ? defferdVideos.length : Math.min(12, defferdVideos.length)}
 				/>
 			) : (

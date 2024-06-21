@@ -1,9 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import type { Video } from "@/generate_videos";
-import styles from "./page.module.scss";
+import { useMemo } from "react";
 import { Tag } from "./Tag";
-import { formatDate, formatDuration } from "./util";
+import { useOrgnizerValue, useSetOrganizer, type Organizer } from "./organizer/filter";
+import styles from "./page.module.scss";
+import { filterStringify, formatDate, formatDuration } from "./util";
+import CustomAnchor from "./utils/CustomAnchor";
 
 export function VideoEmbed({ video, className }: { video: Video; className?: string }) {
 	const url = `https://www.nicovideo.jp/watch_tmp/${video.id}`;
@@ -63,10 +66,16 @@ export function VideoEmbed({ video, className }: { video: Video; className?: str
 									</a>
 								</p>
 								<p className={styles.TXT10}>{video.shortDescription}...</p>
+								{video.ownerNickname && (
+									<p className={styles.TXT10}>
+										投稿者 <OwnerName name={video.ownerNickname} />
+									</p>
+								)}
 							</td>
 						</tr>
 					</tbody>
 				</table>
+
 				<div className={styles.tags}>
 					{video.tags.map(tag => {
 						return <Tag key={tag.name} tagName={tag.name} showCheckmark={false} />;
@@ -75,5 +84,21 @@ export function VideoEmbed({ video, className }: { video: Video; className?: str
 				<div className={styles.video_res}>{video.latestCommentSummary}</div>
 			</div>
 		</div>
+	);
+}
+
+function OwnerName({ name }: { name: string }) {
+	const filter = useOrgnizerValue();
+	const setFilter = useSetOrganizer();
+	const changeTo = useMemo<Organizer>(() => ({ ...filter, user: name, query: null, tag: [] }), [filter, name]);
+	return (
+		<CustomAnchor
+			href={filterStringify(changeTo)}
+			onLocalNavigationClick={() => {
+				setFilter(changeTo);
+			}}
+		>
+			{name}
+		</CustomAnchor>
 	);
 }

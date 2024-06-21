@@ -3,7 +3,8 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
+      "WebWorker"
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -31,7 +32,8 @@
         "./src/*"
       ]
     },
-    "target": "ES2017"
+    "target": "es2022",
+    "resolvePackageJsonImports": true
   },
   "include": [
     "next-env.d.ts",

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "next dev",
     "build": "next build",
     "generate": "tsx src/generate_videos.ts",
     "build:generate": "pnpm generate && pnpm build",
@@ -12,8 +12,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@biomejs/biome": "^1.7.3",
     "jotai": "^2.8.3",
+    "jotai-optics": "^0.4.0",
     "next": "15.0.0-rc.0",
     "react": "19.0.0-rc-38e3b23483-20240529",
     "react-dom": "19.0.0-rc-38e3b23483-20240529",
@@ -22,6 +22,7 @@
     "swr": "^2.2.5"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.8.1",
     "@eslint/eslintrc": "^3.1.0",
     "@eslint/js": "^9.1.1",
     "@next/eslint-plugin-next": "^14.2.3",
@@ -39,7 +40,9 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-compiler": "0.0.0-experimental-a97cca1-20240529",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "file-loader": "^6.2.0",
     "globals": "^15.0.0",
+    "json-loader": "^0.5.7",
     "tsx": "^4.11.0",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.13.0",
