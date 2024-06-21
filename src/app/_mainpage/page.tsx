@@ -1,6 +1,7 @@
 import type { VideoMap } from "@/generate_videos";
 import { readFile } from "fs/promises";
 import { Provider } from "jotai";
+import { join } from "path";
 import { Suspense } from "react";
 import { styleText } from "util";
 import type { SearchParams } from "../../types";
@@ -17,7 +18,7 @@ import VideoProvider from "./utils/VideoProvier";
 
 export default async function Page({ searchParams, user }: { searchParams: SearchParams; user: string | null }) {
 	console.log(styleText("cyan", `New Request ${new Date().toLocaleString()}`));
-	const videomap = JSON.parse(await readFile(process.cwd() + "/src/videos.json", "utf-8")) as VideoMap;
+	const videomap = JSON.parse(await readFile(join(process.cwd() + "videos.json"), "utf-8")) as VideoMap;
 	const videos = Object.values(videomap);
 	const filterInit = {
 		...parseSearchParams({
