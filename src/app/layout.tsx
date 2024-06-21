@@ -1,6 +1,8 @@
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
+
 const notosansJp = Noto_Sans_JP({ subsets: ["latin"], weight: "200" });
 
 export const metadata: Metadata = {
@@ -16,6 +18,7 @@ export default function RootLayout({
 	return (
 		<html lang="ja">
 			<body className={notosansJp.className}>{children}</body>
+			<Analytics />
 		</html>
 	);
 }
