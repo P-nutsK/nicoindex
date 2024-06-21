@@ -18,7 +18,7 @@ import VideoProvider from "./utils/VideoProvier";
 
 export default async function Page({ searchParams, user }: { searchParams: SearchParams; user: string | null }) {
 	console.log(styleText("cyan", `New Request ${new Date().toLocaleString()}`));
-	const videomap = JSON.parse(await readFile(join(process.cwd() + "videos.json"), "utf-8")) as VideoMap;
+	const videomap = JSON.parse(await readFile(join(process.cwd() + "/videos.json"), "utf-8")) as VideoMap;
 	const videos = Object.values(videomap);
 	const filterInit = {
 		...parseSearchParams({
