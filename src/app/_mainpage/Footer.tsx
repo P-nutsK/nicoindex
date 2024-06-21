@@ -11,6 +11,8 @@ export function Footer() {
 					<a href="https://fonts.google.com/icons" target="_blank">
 						Material Icons
 					</a>
+					<br />
+					このプロジェクトはOSSです。<a href="https://github.com/pnsk-lab/nicoindex">Github</a>
 				</small>
 			</p>
 		</footer>
