@@ -113,14 +113,16 @@ function calcFilterCompat(a: Organizer, b: Organizer) {
 }
 
 function calcQueryCompat(a: string | null, b: string | null) {
+	// nullは実質""として考える
+
 	// 同じなら割り当てられる
 	if (a === b) return OrganizerCompatible.Equal;
 	// bだけnullなら割り当てられない
 	if (b === null) return OrganizerCompatible.No;
 	// aだけnullなら割り当てられる
 	if (a === null) return OrganizerCompatible.Assignable;
-	// aがbを包括するか
-	return a.includes(b) ? OrganizerCompatible.Assignable : OrganizerCompatible.No;
+	// bがaを包括するか
+	return b.includes(a) ? OrganizerCompatible.Assignable : OrganizerCompatible.No;
 }
 
 function calcTagCompat(a: string[], b: string[]) {
