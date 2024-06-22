@@ -15,6 +15,8 @@ import { AtomsHydrator } from "./utils/HydrateAtoms";
 import { NoScriptDetect } from "./utils/NoScriptDetect";
 import { QueryTracker } from "./utils/QueryTracker";
 import VideoProvider from "./utils/VideoProvier";
+// set Timezone
+process.env.TZ = "Asia/Tokyo";
 
 export default async function Page({ searchParams, user }: { searchParams: SearchParams; user: string | null }) {
 	console.log(styleText("cyan", `New Request ${new Date().toLocaleString()}`));
