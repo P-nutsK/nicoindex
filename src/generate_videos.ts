@@ -1,4 +1,5 @@
 import { readFileSync, writeFileSync } from "fs";
+import { join } from "path";
 type ResponseType = {
 	meta: {
 		status: number;
@@ -145,7 +146,7 @@ async function main() {
 	process.on("SIGTERM", () => controller.abort());
 	process.on("SIGINT", () => controller.abort());
 	const allvideos = await tryFetchAllVideos(
-		Object.values(JSON.parse(readFileSync("src/videos.json", "utf-8")) as VideoMap),
+		Object.values(JSON.parse(readFileSync("videos.json", "utf-8")) as VideoMap),
 		controller.signal,
 	);
 	const result = [];
@@ -165,7 +166,7 @@ async function main() {
 	const mapped: VideoMap = Object.fromEntries(result.map(v => [v.id, v]));
 	const mappedstr = JSON.stringify(mapped);
 	console.log(mappedstr);
-	writeFileSync(process.cwd() + "/src/videos.json", mappedstr);
+	writeFileSync(join(process.cwd(), "videos.json"), mappedstr);
 }
 
 main().catch(e => {
@@ -191,7 +192,7 @@ async function tryFetchAllVideos(
 		shortDescription: string;
 	}[] = [],
 	signal: AbortSignal,
-	count = 799,
+	count = 999,
 ) {
 	const videos = defaultArray;
 	const knownId = new Set<string>(videos.map(v => v.id));
