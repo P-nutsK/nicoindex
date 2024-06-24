@@ -7,7 +7,7 @@ import { styleText } from "util";
 import type { SearchParams } from "../../types";
 import { Search } from "./Search";
 import Tags from "./Tags";
-import { UploadedBy } from "./UploadedBy";
+import { ShowUploadedBy } from "./UploadedBy";
 import { Videos } from "./Videos";
 import styles from "./page.module.scss";
 import { filterStringify, parseSearchParams } from "./util";
@@ -20,7 +20,7 @@ process.env.TZ = "Asia/Tokyo";
 
 export default async function Page({ searchParams, user }: { searchParams: SearchParams; user: string | null }) {
 	console.log(styleText("cyan", `New Request ${new Date().toLocaleString()}`));
-	const videomap = JSON.parse(await readFile(join(process.cwd() + "/videos.json"), "utf-8")) as VideoMap;
+	const videomap = JSON.parse(await readFile(join(process.cwd(), "videos.json"), "utf-8")) as VideoMap;
 	const videos = Object.values(videomap);
 	const filterInit = {
 		...parseSearchParams({
@@ -57,7 +57,7 @@ export default async function Page({ searchParams, user }: { searchParams: Searc
 					</noscript>
 					<NoScriptDetect noscriptMode={noscriptMode} />
 					<h1>ニコニコ動画避難所インデックス</h1>
-					<UploadedBy />
+					<ShowUploadedBy />
 					<Search />
 					<Tags />
 					<hr />

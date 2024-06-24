@@ -59,16 +59,16 @@
     cursor: pointer;
     position: relative;
     display: inline-block;
-    input {
-        appearance: none;
-        margin: 0;
-    }
     border: 1px #aaa solid;
     border-radius: 3px;
     margin: 2px;
     padding: 0 0.5em;
-    .count {
-        margin-left: 2px;
+    color: #666;
+    background-color: white;
+    // 中のチェックボックス
+    input[type="checkbox"] {
+        appearance: none;
+        margin: 0;
     }
     &:has(input:checked) {
         padding-left: 27px;
@@ -83,23 +83,26 @@
             left: 5px;
         }
     }
-    color: #666;
-    background-color: white;
+    // hover like
     @media (any-hover: hover) {
         &:hover {
             background-color: #666;
             color: white;
         }
     }
-
     &:active,
     &:has(input:checked) {
         background-color: #666;
         color: white;
     }
+    // focus
     &:has(input:focus-visible) {
         outline: blue 2px solid;
         transition: 200ms;
+    }
+
+    .count {
+        margin-left: 2px;
     }
 }
 .tag-container {
