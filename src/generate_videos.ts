@@ -1,4 +1,5 @@
-import { readFileSync, writeFileSync } from "fs";
+import { writeFileSync } from "fs";
+import { readFile } from "fs/promises";
 import { join } from "path";
 type ResponseType = {
 	meta: {
@@ -146,7 +147,11 @@ async function main() {
 	process.on("SIGTERM", () => controller.abort());
 	process.on("SIGINT", () => controller.abort());
 	const allvideos = await tryFetchAllVideos(
-		Object.values(JSON.parse(readFileSync("videos.json", "utf-8")) as VideoMap),
+		Object.values(
+			(await readFile("videos.json", "utf-8")
+				.then(JSON.parse)
+				.catch(() => ({}))) as VideoMap,
+		),
 		controller.signal,
 	);
 	const result = [];
