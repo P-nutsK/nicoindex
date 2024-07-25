@@ -9,6 +9,8 @@ async function main() {
 	const controller = new AbortController();
 	const cb = () => controller.abort();
 	process.once("SIGINT", cb);
+	process.once("SIGTERM", cb);
+	process.once("SIGHUP", cb);
 	const allvideos = await tryFetchAllVideos(
 		Object.values(
 			(await readFile("videos.json", "utf-8")
@@ -18,6 +20,8 @@ async function main() {
 		controller.signal,
 	);
 	process.off("SIGINT", cb);
+	process.off("SIGTERM", cb);
+	process.off("SIGHUP", cb);
 	const result = [];
 	for (const [i, video] of allvideos.entries()) {
 		// full video
