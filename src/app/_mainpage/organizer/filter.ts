@@ -1,7 +1,7 @@
 "use client";
-import type { Video } from "@/generate_videos";
-import { useAtomValue, useSetAtom, type SetStateAction } from "jotai";
-import { useCallback, useRef, type Dispatch } from "react";
+import type { Video } from "@/types";
+import { type SetStateAction, useAtomValue, useSetAtom } from "jotai";
+import { type Dispatch, useCallback, useRef } from "react";
 import { organizerAtom } from "../atoms";
 import { filterStringify } from "../util";
 import { useVideos } from "../utils/VideoProvier";

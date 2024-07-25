@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import type { Video } from "@/generate_videos";
+import type { Video } from "@/types";
 import { useMemo } from "react";
 import { Tag } from "./Tag";
-import { useOrgnizerValue, useSetOrganizer, type Organizer } from "./organizer/filter";
+import { type Organizer, useOrgnizerValue, useSetOrganizer } from "./organizer/filter";
 import styles from "./page.module.scss";
 import { filterStringify, formatDate, formatDuration } from "./util";
 import CustomAnchor from "./utils/CustomAnchor";

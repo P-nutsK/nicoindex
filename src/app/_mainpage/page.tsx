@@ -1,4 +1,4 @@
-import type { VideoMap } from "@/generate_videos";
+import type { VideoMap } from "@/types";
 import { readFile } from "fs/promises";
 import { Provider } from "jotai";
 import { join } from "path";

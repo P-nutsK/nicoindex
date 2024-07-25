@@ -1,151 +1,14 @@
 import { writeFileSync } from "fs";
 import { readFile } from "fs/promises";
 import { join } from "path";
-type ResponseType = {
-	meta: {
-		status: number;
-	};
-	data: {
-		videos: ApiVideos;
-	};
-};
-type ApiVideos = {
-	type: string;
-	id: string;
-	title: string;
-	registeredAt: string;
-	count: {
-		view: number;
-		comment: number;
-		mylist: number;
-		like: number;
-	};
-	thumbnail: {
-		url: string;
-		middleUrl: null;
-		largeUrl: null;
-		listingUrl: string;
-		nHdUrl: string;
-	};
-	duration: number;
-	shortDescription: string;
-	latestCommentSummary: string;
-	isChannelVideo: boolean;
-	isPaymentRequired: boolean;
-	playbackPosition: null;
-	owner: {
-		ownerType: "hidden";
-		type: "unknown";
-		visibility: "hidden";
-		id: null;
-		name: null;
-		iconUrl: null;
-	};
-	requireSensitiveMasking: false;
-	videoLive: null;
-	isMuted: boolean;
-	"9d091f87": boolean;
-	acf68865: boolean;
-}[];
-type ApiWatch$Id = {
-	meta: {
-		status: number;
-	};
-	data: {
-		client: {
-			nicosid: string;
-			watchId: string;
-			watchTrackId: string;
-		};
-		genre: {
-			key: string;
-			label: string;
-			isImmoral: boolean;
-			isDisabled: boolean;
-			isNotSet: boolean;
-		};
-		media: {
-			domand: {
-				videos: unknown[];
-				audios: unknown[];
-				isStoryboardAvailable: false;
-				accessRightKey: string;
-			};
-			delivery: null;
-			deliveryLegacy: null;
-		};
-		tag: {
-			items: {
-				name: string;
-				isLocked: boolean;
-			}[];
-		};
-		video: {
-			id: string;
-			title: string;
-			description: string;
-			count: {
-				view: number;
-				comment: number;
-				mylist: number;
-				like: number;
-			};
-			duration: number;
-			thumbnail: {
-				url: string;
-				middleUrl: null;
-				largeUrl: null;
-				player: string;
-				ogp: string;
-			};
-			registeredAt: string;
-		};
-		ownerNickname: string;
-	};
-};
-export type Video = {
-	latestCommentSummary: string;
-	shortDescription: string;
-	tags: {
-		name: string;
-		isLocked: boolean;
-	}[];
-	ownerNickname: string | null;
-	genre: {
-		key: string;
-		label: string;
-		isImmoral: boolean;
-		isDisabled: boolean;
-		isNotSet: boolean;
-	};
-	id: string;
-	title: string;
-	description: string;
-	count: {
-		view: number;
-		comment: number;
-		mylist: number;
-		like: number;
-	};
-	duration: number;
-	thumbnail: {
-		url: string;
-		middleUrl: string | null;
-		largeUrl: string | null;
-		player: string;
-		ogp: string;
-	};
-	registeredAt: string;
-	registeredAtNum: number;
-};
-export type VideoMap = { [id: string]: Video };
-
+import type { Video, VideoMap } from "../src/types";
+import type { ApiWatch$Id, ResponseType } from "./types";
 const sleep = (t: number) => new Promise(r => setTimeout(r, t));
 async function main() {
 	console.log("fetching all videos...");
 	const controller = new AbortController();
-	process.on("SIGTERM", () => controller.abort());
-	process.on("SIGINT", () => controller.abort());
+	const cb = () => controller.abort();
+	process.once("SIGINT", cb);
 	const allvideos = await tryFetchAllVideos(
 		Object.values(
 			(await readFile("videos.json", "utf-8")
@@ -154,6 +17,7 @@ async function main() {
 		),
 		controller.signal,
 	);
+	process.off("SIGINT", cb);
 	const result = [];
 	for (const [i, video] of allvideos.entries()) {
 		// full video
@@ -167,7 +31,6 @@ async function main() {
 			result.push({ ...video, ...videoInfo, registeredAtNum: new Date(videoInfo.registeredAt).valueOf() });
 		}
 	}
-
 	const mapped: VideoMap = Object.fromEntries(result.map(v => [v.id, v]));
 	const mappedstr = JSON.stringify(mapped);
 	console.log(mappedstr);
@@ -224,7 +87,11 @@ async function tryFetchAllVideos(
 			if (signal.aborted) throw new Error("Aborted");
 		}
 	} catch (e) {
-		console.error(e);
+		if (e instanceof Error && e.message === "Aborted") {
+			console.log("ビデオ一覧の取得を中断");
+		} else {
+			console.error(e);
+		}
 		return videos;
 	}
 	return videos;

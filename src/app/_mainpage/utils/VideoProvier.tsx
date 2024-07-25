@@ -1,6 +1,6 @@
 "use client";
 // unused
-import { Video } from "@/generate_videos";
+import { Video } from "@/types";
 import { useAtomValue } from "jotai";
 import { createContext, use, useState } from "react";
 import { sortAtom } from "../atoms";
