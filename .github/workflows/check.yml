@@ -23,7 +23,7 @@ jobs:
         run: npm install
 
       - name: Run compare script
-        run: node --run check
+        run: npm run check
 
       - name: Commit and push changes
         if: success() && steps.check-and-push.should_push == 'true'
