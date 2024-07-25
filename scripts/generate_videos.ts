@@ -38,7 +38,7 @@ async function main() {
 	const mapped: VideoMap = Object.fromEntries(result.map(v => [v.id, v]));
 	const mappedstr = JSON.stringify(mapped);
 	console.log(mappedstr);
-	writeFileSync(join(process.cwd(), "videos.json"), mappedstr);
+	writeFileSync(join(import.meta.dirname, "../videos.json"), mappedstr);
 }
 
 main().catch(e => {
